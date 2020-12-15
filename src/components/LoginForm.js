@@ -4,12 +4,33 @@ class LoginForm extends React.Component {
   constructor() {
     super();
 
-    this.state = {};
+    this.state = {
+      username: '',
+      password: ''
+    };
+  }
+
+  handleLogin = (event) => {
+    event.preventDefault()
+    if (this.state.username === '' || this.state.password === '') {
+      // console.log('You cannot leave a field blank!')
+      return
+    }
+
+    this.props.handleLogin(this.state)
+  }
+
+  handleOnChange = (event) => {
+    if (event.target.id === 'username') {
+      this.setState({username: event.target.value})
+    } else if (event.target.id === 'password') {
+      this.setState({password: event.target.value})
+    }
   }
 
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleLogin} onChange={ this.handleOnChange }>
         <div>
           <label>
             Username
